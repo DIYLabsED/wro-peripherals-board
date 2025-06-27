@@ -3824,6 +3824,16 @@
 		)
 		(uuid "006ef9a1-7596-4226-956d-77f4f34cfacd")
 	)
+	(label "RX_S"
+		(at 96.52 59.69 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "06dc7e07-7cc5-4ec5-a0bd-40263a2b4c85")
+	)
 	(label "PWMB"
 		(at 35.56 87.63 0)
 		(effects
@@ -3873,6 +3883,16 @@
 			(justify left bottom)
 		)
 		(uuid "29788b2f-3d0a-4931-8509-26761ada958a")
+	)
+	(label "RX_T"
+		(at 96.52 62.23 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2e11240c-a98f-480b-8fa6-04352deaae26")
 	)
 	(label "SDA"
 		(at 246.38 74.93 180)
@@ -3984,16 +4004,6 @@
 		)
 		(uuid "b30764ca-0701-483d-999a-b3d3a81430fc")
 	)
-	(label "RX_S"
-		(at 96.52 62.23 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c15d8c40-f860-47fa-b4f5-224bb5c1ee85")
-	)
 	(label "SCL"
 		(at 246.38 48.26 180)
 		(effects
@@ -4024,6 +4034,16 @@
 		)
 		(uuid "d233dab9-8a68-4fd8-abea-d1d390aab889")
 	)
+	(label "SERVO"
+		(at 96.52 64.77 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "de0b7511-0550-4b3a-9e1b-37d3a557a3e3")
+	)
 	(label "PWMA"
 		(at 35.56 80.01 0)
 		(effects
@@ -4044,16 +4064,6 @@
 		)
 		(uuid "ee321c0d-9765-459b-a3ae-651386529198")
 	)
-	(label "RX_T"
-		(at 96.52 64.77 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "fcfe3387-2767-4457-afd2-880fb7d1ca73")
-	)
 	(label "SERVO"
 		(at 246.38 93.98 180)
 		(effects
@@ -4063,16 +4073,6 @@
 			(justify right bottom)
 		)
 		(uuid "fd301353-c01d-4197-ad06-f1f502e8a1b3")
-	)
-	(label "SERVO"
-		(at 96.52 59.69 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "fe61551f-9ee0-4a52-841f-f6d2aed7debe")
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Pin")

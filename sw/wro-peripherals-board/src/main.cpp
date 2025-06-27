@@ -1,18 +1,21 @@
 #include <Arduino.h>
+#include <Adafruit_MPU6050.h>
+#include <Adafruit_Sensor.h>
+#include <Wire.h>
+#include "pindefs.h"
 
-// put function declarations here:
-int myFunction(int, int);
+void setup(){
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  Wire.setSCL(PIN_I2C0_SCL);
+  Wire.setSDA(PIN_I2C0_SDA);
+
+  Serial.begin(115200);
+  delay(5000);
+
+  Serial.println("Adafruit MPU6050 test!");
+
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void loop(){
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
 }
