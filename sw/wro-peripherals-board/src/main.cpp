@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Adafruit_SSD1306.h>
+#include <Servo.h>
 #include "motor-driver.h"
 #include "imu.h"
 #include "pindefs.h"
@@ -12,7 +13,12 @@ const uint8_t OLED_ADDR = 0x3C;
 TwoWire* OLED_I2C_INSTANCE = &Wire;
 
 
+int steeringServoPosition;  // 0 <-> 180
+int throttle;               // -1024 <-> 1024
+
+
 Adafruit_SSD1306 oled(OLED_WIDTH, OLED_HEIGHT, &Wire, OLED_RESET);
+Servo steeringServo;
 
 
 void printSensorData();   // Output sensor data over Serial
@@ -24,6 +30,7 @@ void setup(){
   while(!Serial);
   Serial.println("Init");
 
+  steeringServo.attach(PIN_STEERING_SERVO);
 
   Wire.setSCL(PIN_I2C0_SCL);
   Wire.setSDA(PIN_I2C0_SDA);
@@ -32,18 +39,29 @@ void setup(){
     // no failure handling
   }
 
-  oled.clearDisplay();
-  oled.display();
-
-
   initMotorDriver();
-  Serial.println(initIMU());
+  armMotorDriver();
+  initIMU();
 
 }
 
 void loop(){
 
   //printSensorData();
+  if(Serial.available()){
+
+    String command = Serial.readString();
+
+    int commaIndex = command.indexOf(",");
+    throttle = command.substring(0, commaIndex).toInt();
+    steeringServoPosition = command.substring(commaIndex + 1).toInt();
+    
+    steeringServo.write((steeringServoPosition));
+    driveMotorA(abs(throttle), (throttle > 0));
+     
+    Serial.println(String(throttle) + ", " + String(steeringServoPosition));  
+     
+  }
 
 }
 

@@ -5,7 +5,7 @@
 #include <Wire.h>
 
 
-#define DEBUG_IMU_SERIAL    // Prints debug messages to serial when defined
+// #define DEBUG_IMU_SERIAL    // Prints debug messages to serial when defined
 
 
 Adafruit_MPU6050 mpu;
