@@ -1,27 +1,25 @@
 #include "motor-driver.h"
 
-void initMotorDriver(TB6612_pindef pindef){
+void initMotorDriver(){
 
-  tb6612Pindef = pindef;
+  pinMode(PIN_TB6612_PWMA, OUTPUT);
+  pinMode(PIN_TB6612_PWMB, OUTPUT);
 
-  pinMode(tb6612Pindef.PIN_PWMA, OUTPUT);
-  pinMode(tb6612Pindef.PIN_PWMB, OUTPUT);
+  pinMode(PIN_TB6612_AIN1, OUTPUT);
+  pinMode(PIN_TB6612_AIN2, OUTPUT);
+  pinMode(PIN_TB6612_BIN1, OUTPUT);
+  pinMode(PIN_TB6612_BIN2, OUTPUT);
 
-  pinMode(tb6612Pindef.PIN_AIN1, OUTPUT);
-  pinMode(tb6612Pindef.PIN_AIN2, OUTPUT);
-  pinMode(tb6612Pindef.PIN_BIN1, OUTPUT);
-  pinMode(tb6612Pindef.PIN_BIN2, OUTPUT);
-
-  pinMode(tb6612Pindef.PIN_STBY, OUTPUT);
+  pinMode(PIN_TB6612_STBY, OUTPUT);
 
   disarmMotorDriver();              
   driveMotors(0, false, 0, false);
 
 }
 
-void initMotorDriver(TB6612_pindef pindef, uint32_t aWriteRange){
+void initMotorDriver(uint32_t aWriteRange){
 
-  initMotorDriver(pindef);
+  initMotorDriver();
   setAnalogWriteRange(aWriteRange);
 
 }
@@ -34,13 +32,13 @@ void setAnalogWriteRange(uint32_t range){
 
 void armMotorDriver(){
 
-  digitalWrite(tb6612Pindef.PIN_STBY, LOW);
+  digitalWrite(PIN_TB6612_STBY, HIGH);
 
 }
 
 void disarmMotorDriver(){
 
-  digitalWrite(tb6612Pindef.PIN_STBY, HIGH);
+  digitalWrite(PIN_TB6612_STBY, LOW);
 
 }
 
@@ -53,16 +51,16 @@ void driveMotors(int aSpeed, boolean aDir, int bSpeed, boolean bDir){
 
 void driveMotorA(int speed, boolean dir){
 
-  digitalWrite(tb6612Pindef.PIN_AIN1, dir);
-  digitalWrite(tb6612Pindef.PIN_AIN2, !dir);
-  analogWrite(tb6612Pindef.PIN_PWMA, speed);
+  digitalWrite(PIN_TB6612_AIN1, dir);
+  digitalWrite(PIN_TB6612_AIN2, !dir);
+  analogWrite(PIN_TB6612_PWMA, speed);
 
 }
 
 void driveMotorB(int speed, boolean dir){
 
-  digitalWrite(tb6612Pindef.PIN_BIN1, dir);
-  digitalWrite(tb6612Pindef.PIN_BIN2, !dir);
-  analogWrite(tb6612Pindef.PIN_PWMB, speed);
+  digitalWrite(PIN_TB6612_BIN1, !dir);
+  digitalWrite(PIN_TB6612_BIN2, dir);
+  analogWrite(PIN_TB6612_PWMB, speed);
 
 }
