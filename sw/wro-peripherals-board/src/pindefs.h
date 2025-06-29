@@ -1,7 +1,7 @@
 #pragma once
 
-#define PIN_WIRE0_SDA 4
-#define PIN_WIRE0_SCL 5
+#define PIN_I2C0_SDA 4
+#define PIN_I2C0_SCL 5
 
 #define PIN_TB6612_PWMA 9
 #define PIN_TB6612_PWMB 12
