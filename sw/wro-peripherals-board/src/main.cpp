@@ -30,10 +30,10 @@ void printInputsToOLED();
 void setup(){
 
   Serial.begin();
-  while(!Serial);
+  //while(!Serial);
   Serial.println("Init");
 
-  steeringServo.attach(PIN_STEERING_SERVO);
+  steeringServo.attach(4);
 
   Wire.setSCL(PIN_I2C0_SCL);
   Wire.setSDA(PIN_I2C0_SDA);
@@ -45,6 +45,9 @@ void setup(){
   initMotorDriver();
   armMotorDriver();
   initIMU();
+
+  pinMode(PIN_RX_STEERING, INPUT);
+  pinMode(PIN_RX_THROTTLE, INPUT);
 
 }
 
@@ -96,7 +99,7 @@ void getInputsFromSerial(){
     throttle = command.substring(0, commaIndex).toInt();
     steeringServoPosition = command.substring(commaIndex + 1).toInt();
     
-    steeringServo.write((steeringServoPosition));
+    steeringServo.write(steeringServoPosition);
     driveMotorA(abs(throttle), (throttle > 0));
      
     Serial.println(String(throttle) + ", " + String(steeringServoPosition));  
@@ -107,7 +110,11 @@ void getInputsFromSerial(){
 
 void getInputsFromRadio(){
 
+  steeringServoPosition = constrain(map(pulseIn(PIN_RX_STEERING, HIGH), 1000, 2000, 0, 180), 0, 180);
+  throttle = constrain(map(pulseIn(PIN_RX_THROTTLE, HIGH), 1000, 2000, -100, 100), -100, 100);
 
+  steeringServo.write((steeringServoPosition));
+  driveMotorA(abs(throttle), (throttle > 0));  
 
 }
 
@@ -117,7 +124,8 @@ void printInputsToOLED(){
   oled.setCursor(0, 0);
   oled.setTextSize(2);
   oled.setTextColor(SSD1306_WHITE);
-  oled.println(String(throttle));
-  oled.println(String(steeringServoPosition));
+  oled.println("THR " + String(throttle));
+  oled.println("STR " + String(steeringServoPosition));
+  oled.display();
 
 }
