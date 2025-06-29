@@ -75,7 +75,25 @@ bool initHMC(){
   }
 
   #ifdef DEBUG_IMU_SERIAL
+
     Serial.println("HMC5883L initialised!");
+
+    sensor_t magSensor;
+    hmc.getSensor(&magSensor);
+
+    Serial.print("magSensor name:");
+    Serial.println(magSensor.name);
+    Serial.print("magSensor version:");
+    Serial.println(magSensor.version);
+    Serial.print("magSensor ID:");
+    Serial.println(magSensor.sensor_id);
+    Serial.print("magSensor max value:");
+    Serial.println(magSensor.max_value);
+    Serial.print("magSensor min value:");
+    Serial.println(magSensor.min_value);
+    Serial.print("magSensor resolution:");
+    Serial.println(magSensor.resolution);
+
   #endif
 
   return true;  
@@ -107,29 +125,6 @@ IMUData getIMUData(){
   data.magZ    = hmcM.magnetic.z;
 
   return data;
-
-}
-
-void printMPU6050Data(){
-
-  sensors_event_t a, g, t;
-  mpu.getEvent(&a, &g, &t);
-
-  Serial.print(a.acceleration.x);
-  Serial.print(",");
-  Serial.print(a.acceleration.y);
-  Serial.print(",");
-  Serial.print(a.acceleration.z);
-  Serial.print(",");
-  Serial.print(g.gyro.x);
-  Serial.print(",");
-  Serial.print(g.gyro.y);
-  Serial.print(",");
-  Serial.print(g.gyro.z);
-  Serial.print(",");
-  Serial.print(t.temperature);
-
-  Serial.println();
 
 }
 
