@@ -22,6 +22,9 @@ Servo steeringServo;
 
 
 void printSensorData();   // Output sensor data over Serial
+void getInputsFromSerial();
+void getInputsFromRadio();
+void printInputsToOLED();
 
 
 void setup(){
@@ -48,20 +51,8 @@ void setup(){
 void loop(){
 
   //printSensorData();
-  if(Serial.available()){
-
-    String command = Serial.readString();
-
-    int commaIndex = command.indexOf(",");
-    throttle = command.substring(0, commaIndex).toInt();
-    steeringServoPosition = command.substring(commaIndex + 1).toInt();
-    
-    steeringServo.write((steeringServoPosition));
-    driveMotorA(abs(throttle), (throttle > 0));
-     
-    Serial.println(String(throttle) + ", " + String(steeringServoPosition));  
-     
-  }
+  getInputsFromSerial();
+  printInputsToOLED();
 
 }
 
@@ -92,5 +83,41 @@ void printSensorData(){
   Serial.print(data.magZ);
   
   Serial.println();
+
+}
+
+void getInputsFromSerial(){
+
+  if(Serial.available()){
+
+    String command = Serial.readString();
+
+    int commaIndex = command.indexOf(",");
+    throttle = command.substring(0, commaIndex).toInt();
+    steeringServoPosition = command.substring(commaIndex + 1).toInt();
+    
+    steeringServo.write((steeringServoPosition));
+    driveMotorA(abs(throttle), (throttle > 0));
+     
+    Serial.println(String(throttle) + ", " + String(steeringServoPosition));  
+     
+  }
+
+}
+
+void getInputsFromRadio(){
+
+
+
+}
+
+void printInputsToOLED(){
+
+  oled.clearDisplay();
+  oled.setCursor(0, 0);
+  oled.setTextSize(2);
+  oled.setTextColor(SSD1306_WHITE);
+  oled.println(String(throttle));
+  oled.println(String(steeringServoPosition));
 
 }
